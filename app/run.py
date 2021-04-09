@@ -4,13 +4,14 @@ import pandas as pd
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
+from sklearn.base import BaseEstimator, TransformerMixin
+
 
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
-
 
 app = Flask(__name__)
 
@@ -25,14 +26,96 @@ def tokenize(text):
 
     return clean_tokens
 
+
+
+
+def normalize(x, x_min, x_max):
+    
+      # The output is the normalized value
+      return (x - x_min)/(x_max - x_min)
+
+
+class message_lengths_words(BaseEstimator, TransformerMixin):
+
+    def message_length_words(self, text):
+      # tokenize by words, how many words in message
+      word_list_tok = word_tokenize(text)
+
+      return len(word_list_tok)
+
+      
+    def fit(self, x, y=None):
+        return self
+    """
+    def fit_transform(self, X):
+        # apply length_word function to all values in X
+        print(self.message_length_words)
+        X_tagged_words = pd.Series(X).apply(self.message_length_words)
+
+
+        return pd.DataFrame(X_tagged_words)
+    """
+
+    def transform(self, X):
+        # apply length_word function to all values in X
+        
+        X_tagged_words = pd.Series(X).apply(self.message_length_words)
+        #normalize the series
+        
+        x_min = min(X_tagged_words)
+        x_max = max(X_tagged_words)
+        
+        X_tagged_words_norm = pd.Series(X_tagged_words).apply(normalize, 
+                                                              x_min = x_min, 
+                                                              x_max = x_max)
+
+        return pd.DataFrame(X_tagged_words_norm)
+        
+    
+class message_length_char(BaseEstimator, TransformerMixin):
+    #get how many characters in string
+    def message_length_chars(self, text):
+          
+      tran = len(text)
+      return tran
+      
+    def fit(self, x, y=None):
+        return self
+    """
+    def fit_transform(self, X):
+        # apply length_char function to all values in X
+        X_tagged_char = pd.Series(X).apply(self.message_length_char)
+
+        return pd.DataFrame(X_tagged_char)
+      
+    """
+
+
+    def transform(self, X):
+        # apply length_char function to all values in X
+        X_tagged_char = pd.Series(X).apply(self.message_length_chars)
+        #normalize the series
+        x_min = min(X_tagged_char)
+        x_max = max(X_tagged_char)
+        
+        X_tagged_char_norm = pd.Series(X_tagged_char).apply(normalize, 
+                                                            x_min = x_min, 
+                                                            x_max = x_max)
+
+        return pd.DataFrame(X_tagged_char_norm)
+
+
+print('going to load the database now')
 # load data
-engine = create_engine('sqlite:///../data/disaster_response.db')
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('disaster_resp_mes', engine)
 
+
+print('going to load the model now')
 # load model
-model = joblib.load("../models/disaster_response_model.pkl")
+model = joblib.load("../models/classifier.pkl")
 
-
+print('model loaded')
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
@@ -93,6 +176,7 @@ def go():
 
 
 def main():
+    print('I am here')
     app.run(host='0.0.0.0', port=3001, debug=True)
 
 

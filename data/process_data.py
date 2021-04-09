@@ -1,5 +1,7 @@
 import sys
 import pandas as pd
+from sqlalchemy import create_engine
+
 
 def load_data(messages_filepath, categories_filepath):
     
@@ -53,7 +55,12 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
-    pass  
+    
+    engine = create_engine('sqlite:///{}'.format(database_filename))
+
+    df.to_sql('disaster_resp_mes', engine, index=False, if_exists = 'replace')
+    
+      
 
 
 def main():
@@ -64,11 +71,9 @@ def main():
         print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
               .format(messages_filepath, categories_filepath))
         df = load_data(messages_filepath, categories_filepath)
-        print('Data shape: {} columns, {} rows'.format(df.shape[1], df.shape[0]))
-
+        
         print('Cleaning data...')
         df = clean_data(df)
-        print('Data shape: {} columns, {} rows'.format(df.shape[1], df.shape[0]))
         
         print('Saving data...\n    DATABASE: {}'.format(database_filepath))
         save_data(df, database_filepath)
