@@ -111,11 +111,11 @@ engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('disaster_resp_mes', engine)
 
 
-print('going to load the model now')
+
 # load model
 model = joblib.load("../models/classifier.pkl")
 
-print('model loaded')
+
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
@@ -176,7 +176,7 @@ def go():
 
 
 def main():
-    print('I am here')
+
     app.run(host='0.0.0.0', port=3001, debug=True)
 
 
