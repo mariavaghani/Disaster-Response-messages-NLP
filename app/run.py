@@ -12,9 +12,15 @@ from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
+from message_length_estimator import *
+from sklearn.linear_model import LogisticRegression
+
+
 
 app = Flask(__name__)
 
+#from message_length_estimator import *
+    
 def tokenize(text):
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
@@ -27,100 +33,24 @@ def tokenize(text):
     return clean_tokens
 
 
-
-
-def normalize(x, x_min, x_max):
-    
-      # The output is the normalized value
-      return (x - x_min)/(x_max - x_min)
-
-
-class message_lengths_words(BaseEstimator, TransformerMixin):
-
-    def message_length_words(self, text):
-      # tokenize by words, how many words in message
-      word_list_tok = word_tokenize(text)
-
-      return len(word_list_tok)
-
-      
-    def fit(self, x, y=None):
-        return self
-    """
-    def fit_transform(self, X):
-        # apply length_word function to all values in X
-        print(self.message_length_words)
-        X_tagged_words = pd.Series(X).apply(self.message_length_words)
-
-
-        return pd.DataFrame(X_tagged_words)
-    """
-
-    def transform(self, X):
-        # apply length_word function to all values in X
-        
-        X_tagged_words = pd.Series(X).apply(self.message_length_words)
-        #normalize the series
-        
-        x_min = min(X_tagged_words)
-        x_max = max(X_tagged_words)
-        
-        X_tagged_words_norm = pd.Series(X_tagged_words).apply(normalize, 
-                                                              x_min = x_min, 
-                                                              x_max = x_max)
-
-        return pd.DataFrame(X_tagged_words_norm)
-        
-    
-class message_length_char(BaseEstimator, TransformerMixin):
-    #get how many characters in string
-    def message_length_chars(self, text):
-          
-      tran = len(text)
-      return tran
-      
-    def fit(self, x, y=None):
-        return self
-    """
-    def fit_transform(self, X):
-        # apply length_char function to all values in X
-        X_tagged_char = pd.Series(X).apply(self.message_length_char)
-
-        return pd.DataFrame(X_tagged_char)
-      
-    """
-
-
-    def transform(self, X):
-        # apply length_char function to all values in X
-        X_tagged_char = pd.Series(X).apply(self.message_length_chars)
-        #normalize the series
-        x_min = min(X_tagged_char)
-        x_max = max(X_tagged_char)
-        
-        X_tagged_char_norm = pd.Series(X_tagged_char).apply(normalize, 
-                                                            x_min = x_min, 
-                                                            x_max = x_max)
-
-        return pd.DataFrame(X_tagged_char_norm)
-
-
 print('going to load the database now')
 # load data
 engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('disaster_resp_mes', engine)
 
-
+print('going to load the pickle now')
 
 # load model
 model = joblib.load("../models/classifier.pkl")
+
+print('loaded the pickle now')
 
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
 def index():
-    
+      
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
@@ -160,6 +90,7 @@ def index():
 # web page that handles user query and displays model results
 @app.route('/go')
 def go():
+    
     # save user input in query
     query = request.args.get('query', '') 
 
@@ -175,10 +106,12 @@ def go():
     )
 
 
+
 def main():
 
     app.run(host='0.0.0.0', port=3001, debug=True)
 
 
 if __name__ == '__main__':
+    
     main()
