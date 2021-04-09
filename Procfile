@@ -1,1 +1,1 @@
-web gunicorn disaster:app
+web: python app.run
