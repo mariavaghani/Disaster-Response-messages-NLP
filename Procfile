@@ -1,1 +1,1 @@
-web: python3 app\run.py
+web: python3 disaster.py
