@@ -13,7 +13,7 @@ from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
-from app.message_length_estimator import *
+from app.message_length_estimator import message_lengths_words, message_length_char
 from sklearn.linear_model import LogisticRegression
 
 
