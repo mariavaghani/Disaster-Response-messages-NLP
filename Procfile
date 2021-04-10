@@ -1,1 +1,1 @@
-web: gunicorn disaster:app --log-file=-
+web: gunicorn disaster:app
