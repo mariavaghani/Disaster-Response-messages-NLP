@@ -1,1 +1,1 @@
-web: python3 disaster.py
+web: gunicorn disaster.py
