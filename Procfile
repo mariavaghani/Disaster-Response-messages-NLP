@@ -1,1 +1,1 @@
-web: python cd app\run.py
+web: python run.py/app
