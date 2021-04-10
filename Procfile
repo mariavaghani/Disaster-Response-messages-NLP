@@ -1,1 +1,1 @@
-web gunicorn disaster:app
+web gunicorn app.run:app
