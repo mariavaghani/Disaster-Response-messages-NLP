@@ -21,7 +21,6 @@ from sklearn.linear_model import LogisticRegression
 
 app = Flask(__name__)
 
-#from message_length_estimator import *
     
 def tokenize(text):
     tokens = word_tokenize(text)
@@ -115,9 +114,9 @@ def main():
     #port = int(os.environ.get("PORT", 5000))
     #app.run(host='0.0.0.0', port=port, debug=True)
     app.run()
-
+"""
 
 if __name__ == '__main__':
+    app.run()
     
-    main()
-"""
+    #main()
