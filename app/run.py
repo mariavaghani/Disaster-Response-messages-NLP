@@ -13,7 +13,8 @@ from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
-from app.message_length_estimator import message_lengths_words, message_length_char
+#from app.message_length_estimator import message_lengths_words, message_length_char
+from message_length_estimator import message_lengths_words, message_length_char
 from sklearn.linear_model import LogisticRegression
 
 
@@ -36,15 +37,15 @@ def tokenize(text):
 
 print('going to load the database now')
 # load data
-#engine = create_engine('sqlite:///../data/DisasterResponse.db')
-engine = create_engine('sqlite:///data/DisasterResponse.db')
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
+#engine = create_engine('sqlite:///data/DisasterResponse.db')
 df = pd.read_sql_table('disaster_resp_mes', engine)
 
 print('going to load the pickle now')
 
 # load model
-model = joblib.load("models/classifier.pkl")
-#model = joblib.load("../models/classifier.pkl")
+#model = joblib.load("models/classifier.pkl")
+model = joblib.load("../models/classifier.pkl")
 
 print('loaded the pickle now')
 
@@ -110,11 +111,11 @@ def go():
 
 
 
-#def main():
-    #port = int(os.environ.get("PORT", 5000))
-    #app.run(host='0.0.0.0', port=port, debug=True)
+def main():
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
 
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
     
-#    main()
+    main()
