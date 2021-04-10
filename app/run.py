@@ -36,6 +36,7 @@ def tokenize(text):
 
 print('going to load the database now')
 # load data
+#engine = create_engine('sqlite:///../data/DisasterResponse.db')
 engine = create_engine('sqlite:///data/DisasterResponse.db')
 df = pd.read_sql_table('disaster_resp_mes', engine)
 
@@ -43,6 +44,7 @@ print('going to load the pickle now')
 
 # load model
 model = joblib.load("models/classifier.pkl")
+#model = joblib.load("../models/classifier.pkl")
 
 print('loaded the pickle now')
 
