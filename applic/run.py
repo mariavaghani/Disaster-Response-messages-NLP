@@ -64,6 +64,8 @@ print('loaded the pickle now')
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
+def hello_world():
+   return 'Hello World’
 @app.route('/index')
 def index():
       
