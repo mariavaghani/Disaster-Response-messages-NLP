@@ -42,7 +42,7 @@ df = pd.read_sql_table('disaster_resp_mes', engine)
 print('going to load the pickle now')
 
 # load model
-model = joblib.load("../models/classifier.pkl")
+model = joblib.load("models/classifier.pkl")
 
 print('loaded the pickle now')
 
