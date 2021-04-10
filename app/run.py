@@ -109,7 +109,7 @@ def go():
         classification_result=classification_results
     )
 
-
+"""
 
 def main():
     #port = int(os.environ.get("PORT", 5000))
@@ -120,3 +120,4 @@ def main():
 if __name__ == '__main__':
     
     main()
+"""
