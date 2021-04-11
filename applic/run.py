@@ -19,7 +19,7 @@ from disaster import app
 
 
 #If attempting to run locally - local is set to 1, otherwise 0
-local = 1
+local = 0
 
 
 if local == 0:
