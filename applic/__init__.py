@@ -1,5 +1,5 @@
 from flask import Flask
-from message_length_estimator import message_lengths_words, message_length_char
+from applic.message_length_estimator import message_lengths_words, message_length_char
 
 app = Flask(__name__)
 
