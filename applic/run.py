@@ -15,7 +15,7 @@ import joblib
 from sqlalchemy import create_engine
 from sklearn.linear_model import LogisticRegression
 
-
+from .disaster import app
 
 
 #If attempting to run locally - local is set to 1, otherwise 0
@@ -30,7 +30,7 @@ else:
     
 
 
-app = Flask(__name__)
+#app = Flask(__name__)
 
 """
 
@@ -205,7 +205,7 @@ def main():
     else:
         app.run()
 
-app.run()
+
 
 if __name__ == '__main__':
     #from applic.message_length_estimator import message_lengths_words, message_length_char
