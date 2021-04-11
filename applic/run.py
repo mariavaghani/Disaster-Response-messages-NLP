@@ -19,19 +19,8 @@ from disaster import app
 
 
 from .message_length_estimator import message_lengths_words, message_length_char
-    
+from .message_length_estimator import tokenize
 
- 
-def tokenize(text):
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
-
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
-
-    return clean_tokens
 
 
 print('going to load the database now')

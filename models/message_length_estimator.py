@@ -1,12 +1,30 @@
 from sklearn.base import BaseEstimator, TransformerMixin
 from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
 import pandas as pd
 
-
-def normalize(x, x_min, x_max):
+def tokenize(text):
     
-      # The output is the normalized value
-      return (x - x_min)/(x_max - x_min)
+    """
+    INPUT:
+    text - string
+    OUTPUT:
+    tokens - list of strings
+    
+    function takes raw text, removes punctuation signs, substitutes
+    with spaces. Puts all characters in lower case, tokenizes text
+    by words, removes stop words, lemmatizes, and returns list of tokens 
+    """
+    
+    tokens = word_tokenize(text)
+    lemmatizer = WordNetLemmatizer()
+
+    clean_tokens = []
+    for tok in tokens:
+        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+        clean_tokens.append(clean_tok)
+
+    return clean_tokens
 
 
 class message_lengths_words(BaseEstimator, TransformerMixin):

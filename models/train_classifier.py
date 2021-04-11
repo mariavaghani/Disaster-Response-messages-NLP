@@ -18,6 +18,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 from message_length_estimator import message_lengths_words, message_length_char
+from message_length_estimator import tokenize
 
 from nltk.tokenize import word_tokenize
 import nltk
@@ -54,37 +55,12 @@ def load_data(database_filepath):
     return X, Y, target_colnames
 
 
-def tokenize(text):
-    """
-    INPUT:
-    text - string
-    OUTPUT:
-    tokens - list of strings
-    
-    function takes raw text, removes punctuation signs, substitutes
-    with spaces. Puts all characters in lower case, tokenizes text
-    by words, removes stop words, lemmatizes, and returns list of tokens 
-    """
-    
-    # normalize case and remove punctuation
-    text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
-    
-    # tokenize text
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
-    
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
-
-    return clean_tokens
 
 
 
 def build_model():
     
-    pipeline_feat_base = Pipeline([('features', FeatureUnion([('nlp_pipeline', Pipeline([('vect', CountVectorizer()),
+    pipeline_feat_base = Pipeline([('features', FeatureUnion([('nlp_pipeline', Pipeline([('vect', CountVectorizer(tokenizer=tokenize)),
                                                                           ('tfidf', TfidfTransformer())])),
                                                       ('ml_wor', message_lengths_words()),
                                                       ('ml_char', message_length_char())
