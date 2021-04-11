@@ -28,7 +28,7 @@ nltk.download(['punkt', 'wordnet', 'stopwords'])
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.metrics import f1_score
 from sklearn.metrics import classification_report
-
+from message_length_estimator import message_lengths_words, message_length_char
 
 #Classes
 
@@ -40,7 +40,7 @@ def normalize(x, x_min, x_max):
       # The output is the normalized value
       return (x - x_min)/(x_max - x_min)
 
-
+"""
 class message_lengths_words(BaseEstimator, TransformerMixin):
 
     def message_length_words(self, text):
@@ -52,15 +52,6 @@ class message_lengths_words(BaseEstimator, TransformerMixin):
       
     def fit(self, x, y=None):
         return self
-    """
-    def fit_transform(self, X):
-        # apply length_word function to all values in X
-        print(self.message_length_words)
-        X_tagged_words = pd.Series(X).apply(self.message_length_words)
-
-
-        return pd.DataFrame(X_tagged_words)
-    """
 
     def transform(self, X):
         # apply length_word function to all values in X
@@ -89,14 +80,7 @@ class message_length_char(BaseEstimator, TransformerMixin):
       
     def fit(self, x, y=None):
         return self
-    """
-    def fit_transform(self, X):
-        # apply length_char function to all values in X
-        X_tagged_char = pd.Series(X).apply(self.message_length_char)
 
-        return pd.DataFrame(X_tagged_char)
-      
-    """
 
 
     def transform(self, X):
@@ -111,7 +95,7 @@ class message_length_char(BaseEstimator, TransformerMixin):
                                                             x_max = x_max)
 
         return pd.DataFrame(X_tagged_char_norm)
-
+"""
 
 #Functions
 
