@@ -63,8 +63,7 @@ print('loaded the pickle now')
 
 
 # index webpage displays cool visuals and receives user input text for model
-#@app.route('/')
-
+@app.route('/')
 @app.route('/index')
 def index():
       
