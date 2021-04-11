@@ -198,6 +198,8 @@ def main():
     else:
         app.run()
 
+print('going to load the app now')
+app.run()
 
 if __name__ == '__main__':
     #from applic.message_length_estimator import message_lengths_words, message_length_char
