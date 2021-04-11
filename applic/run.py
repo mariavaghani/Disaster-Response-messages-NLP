@@ -15,7 +15,7 @@ import joblib
 from sqlalchemy import create_engine
 from sklearn.linear_model import LogisticRegression
 
-from .disaster import app
+from disaster import app
 
 
 #If attempting to run locally - local is set to 1, otherwise 0
