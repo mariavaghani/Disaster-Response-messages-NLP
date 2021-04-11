@@ -11,14 +11,6 @@ class message_length_char(BaseEstimator, TransformerMixin):
       
     def fit(self, x, y=None):
         return self
-    """
-    def fit_transform(self, X):
-        # apply length_char function to all values in X
-        X_tagged_char = pd.Series(X).apply(self.message_length_char)
-
-        return pd.DataFrame(X_tagged_char)
-      
-    """
 
     def normalize(self, x, x_min, x_max):
     
@@ -51,16 +43,6 @@ class message_lengths_words(BaseEstimator, TransformerMixin):
       
     def fit(self, x, y=None):
         return self
-    """
-    def fit_transform(self, X):
-        # apply length_word function to all values in X
-        print(self.message_length_words)
-        X_tagged_words = pd.Series(X).apply(self.message_length_words)
-
-
-        return pd.DataFrame(X_tagged_words)
-    """
-
     
     def normalize(self, x, x_min, x_max):
     
