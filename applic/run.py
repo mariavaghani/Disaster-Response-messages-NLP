@@ -24,7 +24,6 @@ local = 0
 
 if local == 0:
     from applic.message_length_estimator import message_lengths_words, message_length_char
-    from applic import app
 else:
     from .message_length_estimator import message_lengths_words, message_length_char
     
