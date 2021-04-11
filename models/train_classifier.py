@@ -17,7 +17,7 @@ from sklearn.pipeline import FeatureUnion
 from sklearn.base import BaseEstimator, TransformerMixin
 
 
-
+from message_length_estimator import message_lengths_words, message_length_char
 
 from nltk.tokenize import word_tokenize
 import nltk
@@ -28,7 +28,7 @@ nltk.download(['punkt', 'wordnet', 'stopwords'])
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.metrics import f1_score
 from sklearn.metrics import classification_report
-
+"""
 #Classes
 
 class message_length_char(BaseEstimator, TransformerMixin):
@@ -91,7 +91,7 @@ class message_lengths_words(BaseEstimator, TransformerMixin):
         X_tagged_words_norm = pd.Series(X_tagged_words).apply(self.normalize, x_min = x_min, x_max = x_max)
 
         return pd.DataFrame(X_tagged_words_norm)
-
+"""
 
 #Functions
 
@@ -206,20 +206,10 @@ def main():
               'save the model to as the second argument. \n\nExample: python '\
               'train_classifier.py ../data/DisasterResponse.db classifier.pkl')
 
-def main2():
-    
-    print('importing model maker\n ')
-    from create_classifier import make_model_for_pickle
-    print('got it, will make model now\n ')
-    model = make_model_for_pickle()
-    print('made it, will pickle now\n ')
-    model_filepath = 'models/classifier.pkl'
-    print('made model, going to pickle\n ')
-    save_model(model, model_filepath)
-    print('pickle ready\n ')
+
 
 if __name__ == '__main__':
    
-    main2()
-    #main()
+   
+    main()
     

@@ -1,3 +1,3 @@
-#from applic.message_length_estimator import message_lengths_words, message_length_char
+#from .models.message_length_estimator import message_lengths_words, message_length_char
 
-from applic import app
+from applic import run

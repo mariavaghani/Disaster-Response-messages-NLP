@@ -14,21 +14,25 @@ from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
 from sklearn.linear_model import LogisticRegression
-from models.create_classifier import make_model_for_pickle
 
-from applic import app
+
+
 
 #If attempting to run locally - local is set to 1, otherwise 0
-local = 0
+local = 1
 
-"""
+
 if local == 0:
     from applic.message_length_estimator import message_lengths_words, message_length_char
+    from applic import app
 else:
-    from message_length_estimator import message_lengths_words, message_length_char
-"""
+    from .message_length_estimator import message_lengths_words, message_length_char
+    
 
-#app = Flask(__name__)
+
+app = Flask(__name__)
+
+"""
 
 #Define pickled classes
 
@@ -95,7 +99,7 @@ class message_lengths_words(BaseEstimator, TransformerMixin):
 
         return pd.DataFrame(X_tagged_words_norm)
 
-    
+"""   
 def tokenize(text):
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
@@ -114,7 +118,8 @@ print('going to load the database now')
 if local == 0:
     engine = create_engine('sqlite:///data/DisasterResponse.db')    
 else:
-    engine = create_engine('sqlite:///../data/DisasterResponse.db')
+    #engine = create_engine('sqlite:///../data/DisasterResponse.db')
+    engine = create_engine('sqlite:///data/DisasterResponse.db')  
 
 
 df = pd.read_sql_table('disaster_resp_mes', engine)
@@ -126,7 +131,8 @@ print('going to load the pickle now')
 if local == 0: 
    model = joblib.load("models/classifier.pkl")
 else:
-    model = joblib.load("../models/classifier.pkl")
+    #model = joblib.load("../models/classifier.pkl")
+    model = joblib.load("models/classifier.pkl")
 
 print('loaded the pickle now')
 
@@ -190,7 +196,7 @@ def go():
         classification_result=classification_results
     )
 
-"""
+
 
 def main():
     if local == 0:
@@ -206,4 +212,3 @@ if __name__ == '__main__':
     
     
     main()
-"""
