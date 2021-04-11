@@ -20,7 +20,7 @@ from sklearn.linear_model import LogisticRegression
 local = 0
 
 if local == 0:
-    from message_length_estimator import message_lengths_words, message_length_char
+    from applic.message_length_estimator import message_lengths_words, message_length_char
 else:
     from message_length_estimator import message_lengths_words, message_length_char
 
@@ -132,5 +132,5 @@ def main():
 
 
 if __name__ == '__main__':
-    from message_length_estimator import message_lengths_words, message_length_char
+    from applic.message_length_estimator import message_lengths_words, message_length_char
     main()
