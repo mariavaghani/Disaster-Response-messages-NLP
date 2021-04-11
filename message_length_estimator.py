@@ -3,14 +3,14 @@ from nltk.tokenize import word_tokenize
 import pandas as pd
 
 
-def normalize(x, x_min, x_max):
-    
-      # The output is the normalized value
-      return (x - x_min)/(x_max - x_min)
-
 
 class message_lengths_words(BaseEstimator, TransformerMixin):
-
+    
+    """
+    Estimator that takes a column of strings, and converts them into a column
+    of integers, representing the word count of each string
+    """
+        
     def message_length_words(self, text):
       # tokenize by words, how many words in message
       word_list_tok = word_tokenize(text)
@@ -32,6 +32,12 @@ class message_lengths_words(BaseEstimator, TransformerMixin):
     
     
 class message_length_char(BaseEstimator, TransformerMixin):
+    
+    """
+    Estimator that takes a column of strings, and converts them into a column
+    of integers, representing the character length of each string
+    """
+    
     #get how many characters in string
     def message_length_chars(self, text):
           

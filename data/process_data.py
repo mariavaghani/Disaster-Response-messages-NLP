@@ -17,7 +17,8 @@ def load_data(messages_filepath, categories_filepath):
 def clean_data(df):
     
     """
-    Takes dataframe
+    Takes dataframe of categories, splits every string, and extracts a category
+    out of each string in form of 1 and 0 matrix, returns cleaned dataset
     """
     # create a dataframe of the 36 individual category columns
     categories = df['categories'].str.split(';', expand = True)
@@ -55,6 +56,20 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+    """
+
+    Parameters
+    ----------
+    df : dataframe
+        to be saved into a database file
+    database_filename : string
+        file path to save the database
+
+    
+    -------
+    
+
+    """
     
     engine = create_engine('sqlite:///{}'.format(database_filename))
 
@@ -64,6 +79,14 @@ def save_data(df, database_filename):
 
 
 def main():
+    """
+
+    -------
+    Runs if the file is executed directly.
+
+    """
+    
+
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]

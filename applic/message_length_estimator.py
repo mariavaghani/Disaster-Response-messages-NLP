@@ -3,6 +3,11 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from nltk.tokenize import word_tokenize
 
 class message_length_char(BaseEstimator, TransformerMixin):
+    """
+    Estimator that takes a column of strings, and converts them into a column
+    of integers, representing the character length of each string
+    """
+    
     #get how many characters in string
     def message_length_chars(self, text):
           
@@ -30,6 +35,10 @@ class message_length_char(BaseEstimator, TransformerMixin):
 
 class message_lengths_words(BaseEstimator, TransformerMixin):
 
+    """
+    Estimator that takes a column of strings, and converts them into a column
+    of integers, representing the word count of each string
+    """
     def message_length_words(self, text):
       # tokenize by words, how many words in message
       word_list_tok = word_tokenize(text)

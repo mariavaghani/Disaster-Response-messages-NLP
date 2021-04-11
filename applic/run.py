@@ -78,12 +78,7 @@ def index():
     
     
     
-    
-    
-    
-    
-    
-    
+    #assigning variables for plots
     y_val1 = df_char['message_length_char']
     y_val2 = df_char['message_length_words']
     x_val = df_char['category']
@@ -182,11 +177,13 @@ def go():
 def main():
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
-   
-#app.run()
+
+ 
+#uncomment when running locally with disaster.py   
+#main()
 
 if __name__ == '__main__':
-    #from applic.message_length_estimator import message_lengths_words, message_length_char
+
     
     
     main()
