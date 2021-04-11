@@ -93,9 +93,6 @@ class message_lengths_words(BaseEstimator, TransformerMixin):
         return pd.DataFrame(X_tagged_words_norm)
 
 
-
-
-
 #Functions
 
 def load_data(database_filepath):

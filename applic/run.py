@@ -15,6 +15,20 @@ import joblib
 from sqlalchemy import create_engine
 from sklearn.linear_model import LogisticRegression
 
+
+
+#If attempting to run locally - local is set to 1, otherwise 0
+local = 0
+
+"""
+if local == 0:
+    from applic.message_length_estimator import message_lengths_words, message_length_char
+else:
+    from message_length_estimator import message_lengths_words, message_length_char
+"""
+
+app = Flask(__name__)
+
 #Define pickled classes
 
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -79,21 +93,6 @@ class message_lengths_words(BaseEstimator, TransformerMixin):
         X_tagged_words_norm = pd.Series(X_tagged_words).apply(self.normalize, x_min = x_min, x_max = x_max)
 
         return pd.DataFrame(X_tagged_words_norm)
-
-
-
-
-#If attempting to run locally - local is set to 1, otherwise 0
-local = 0
-
-"""
-if local == 0:
-    from applic.message_length_estimator import message_lengths_words, message_length_char
-else:
-    from message_length_estimator import message_lengths_words, message_length_char
-"""
-
-app = Flask(__name__)
 
     
 def tokenize(text):
