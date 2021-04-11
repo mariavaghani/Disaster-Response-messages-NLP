@@ -23,13 +23,9 @@ class message_length_char(BaseEstimator, TransformerMixin):
     def transform(self, X):
         # apply length_char function to all values in X
         X_tagged_char = pd.Series(X).apply(self.message_length_chars)
-        #normalize the series
-        x_min = min(X_tagged_char)
-        x_max = max(X_tagged_char)
-        
-        X_tagged_char_norm = pd.Series(X_tagged_char).apply(self.normalize, x_min = x_min, x_max = x_max)
 
-        return pd.DataFrame(X_tagged_char_norm)
+
+        return pd.DataFrame(X_tagged_char)
 
 
 class message_lengths_words(BaseEstimator, TransformerMixin):
@@ -54,12 +50,7 @@ class message_lengths_words(BaseEstimator, TransformerMixin):
         # apply length_word function to all values in X
         
         X_tagged_words = pd.Series(X).apply(self.message_length_words)
-        #normalize the series
-        
-        x_min = min(X_tagged_words)
-        x_max = max(X_tagged_words)
-        
-        X_tagged_words_norm = pd.Series(X_tagged_words).apply(self.normalize, x_min = x_min, x_max = x_max)
 
-        return pd.DataFrame(X_tagged_words_norm)
+
+        return pd.DataFrame(X_tagged_words)
 
