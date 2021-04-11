@@ -201,9 +201,9 @@ def main():
 
 if __name__ == '__main__':
     #from applic.message_length_estimator import message_lengths_words, message_length_char
-    """
+    
     print('going to load the pickle now')
-
+    """
     # load model
     if local == 0: 
         model = joblib.load("models/classifier.pkl")
