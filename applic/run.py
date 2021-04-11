@@ -18,7 +18,7 @@ from sklearn.linear_model import LogisticRegression
 
 
 #If attempting to run locally - local is set to 1, otherwise 0
-local = 0
+local = 1
 
 """
 if local == 0:
