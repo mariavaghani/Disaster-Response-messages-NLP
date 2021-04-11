@@ -15,7 +15,7 @@ import joblib
 from sqlalchemy import create_engine
 from sklearn.linear_model import LogisticRegression
 
-
+from applic import app
 
 #If attempting to run locally - local is set to 1, otherwise 0
 local = 0
@@ -27,7 +27,7 @@ else:
     from message_length_estimator import message_lengths_words, message_length_char
 """
 
-app = Flask(__name__)
+#app = Flask(__name__)
 
 #Define pickled classes
 
