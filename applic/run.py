@@ -189,7 +189,7 @@ def go():
         classification_result=classification_results
     )
 
-
+"""
 
 def main():
     if local == 0:
@@ -205,3 +205,4 @@ if __name__ == '__main__':
     
     
     main()
+"""
