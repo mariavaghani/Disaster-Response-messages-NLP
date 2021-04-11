@@ -206,10 +206,20 @@ def main():
               'save the model to as the second argument. \n\nExample: python '\
               'train_classifier.py ../data/DisasterResponse.db classifier.pkl')
 
-
+def main2():
+    
+    print('importing model maker\n ')
+    from create_classifier import make_model_for_pickle
+    print('got it, will make model now\n ')
+    model = make_model_for_pickle()
+    print('made it, will pickle now\n ')
+    model_filepath = 'models/classifier.pkl'
+    print('made model, going to pickle\n ')
+    save_model(model, model_filepath)
+    print('pickle ready\n ')
 
 if __name__ == '__main__':
    
-    
-    main()
+    main2()
+    #main()
     
