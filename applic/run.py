@@ -14,6 +14,7 @@ from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
 from sklearn.linear_model import LogisticRegression
+from models.create_classifier import make_model_for_pickle
 
 from applic import app
 
