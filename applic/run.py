@@ -18,15 +18,7 @@ from sklearn.linear_model import LogisticRegression
 from disaster import app
 
 
-#If attempting to run locally - local is set to 1, otherwise 0
-local = 0
-
-
-if local == 0:
-    from .message_length_estimator import message_lengths_words, message_length_char
-    
-else:
-    from .message_length_estimator import message_lengths_words, message_length_char
+from .message_length_estimator import message_lengths_words, message_length_char
     
 
  
@@ -45,11 +37,7 @@ def tokenize(text):
 print('going to load the database now')
 # load data
 
-if local == 0:
-    engine = create_engine('sqlite:///data/DisasterResponse.db')    
-else:
-    #engine = create_engine('sqlite:///../data/DisasterResponse.db')
-    engine = create_engine('sqlite:///data/DisasterResponse.db')  
+engine = create_engine('sqlite:///data/DisasterResponse.db')  
 
 
 df = pd.read_sql_table('disaster_resp_mes', engine)
@@ -58,13 +46,11 @@ df = pd.read_sql_table('disaster_resp_mes', engine)
 print('going to load the pickle now')
 
 # load model
-if local == 0: 
-   model = joblib.load("models/classifier.pkl")
-else:
-    #model = joblib.load("../models/classifier.pkl")
-    model = joblib.load("models/classifier.pkl")
+model = joblib.load("models/classifier.pkl")
 
 print('loaded the pickle now')
+
+
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -77,6 +63,30 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
+    
+    #Length char and length words data prep
+    df['message_length_char'] = df['message'].apply(lambda x: len(x))
+    df['message_length_words'] = df['message'].apply(lambda x: len(x.split()))
+
+    df_char = pd.DataFrame(columns = ['message_length_char', 'message_length_words'])
+    for feat in df.columns[4:-2]:
+        row_to_append = df.groupby(by = feat).mean()[['message_length_char', 'message_length_words']].reset_index()
+        df_char = df_char.append(row_to_append)
+
+    df_char = df_char[df_char.index == 1][['message_length_char', 'message_length_words']]
+    df_char['category'] = df.columns[4:-2]
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    y_val1 = df_char['message_length_char']
+    y_val2 = df_char['message_length_words']
+    x_val = df_char['category']
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
@@ -99,23 +109,18 @@ def index():
             }
         },
         
-    ]
-    
-    #me messing here
-    """
-    genre_mes = df.groupby(by = 'genre').sum()
-    one_more_graph =  {
+        {
             'data': [
                 Bar(
-                    x=genre_mes['related'].index,
-                    y=genre_mes['related'].values
+                    x=x_val,
+                    y=y_val1
                 )
             ],
 
             'layout': {
-                'title': 'related',
+                'title': 'Average Character Length of Messages per Genre',
                 'yaxis': {
-                    'title': "total messages"
+                    'title': "Average Character Message Length"
                 },
                 'xaxis': {
                     'title': "Genres"
@@ -123,8 +128,26 @@ def index():
             }
         },
         
-    graphs.append(one_more_graph)
-    """
+        {
+            'data': [
+                Bar(
+                    x=x_val,
+                    y=y_val2
+                )
+            ],
+
+            'layout': {
+                'title': 'Average Word Count of Messages per Genre',
+                'yaxis': {
+                    'title': "Average Word Count"
+                },
+                'xaxis': {
+                    'title': "Genres"
+                }
+            }
+        },
+        
+    ]
     
     #me messing finish
     
@@ -157,14 +180,10 @@ def go():
 
 
 def main():
-    if local == 0:
-        port = int(os.environ.get("PORT", 5000))
-        app.run(host='0.0.0.0', port=port, debug=True)
-    else:
-        app.run()
-
-if local == 1:
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
+   
+#app.run()
 
 if __name__ == '__main__':
     #from applic.message_length_estimator import message_lengths_words, message_length_char
