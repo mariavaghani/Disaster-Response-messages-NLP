@@ -15,6 +15,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.pipeline import FeatureUnion
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.model_selection import GridSearchCV
+
 
 
 from message_length_estimator import message_lengths_words, message_length_char
@@ -59,6 +61,11 @@ def load_data(database_filepath):
 
 
 def build_model():
+    """
+    generates an NLP model that is ready to be fit with training data
+    -------
+
+    """
     
     pipeline_feat_base = Pipeline([('features', FeatureUnion([('nlp_pipeline', Pipeline([('vect', CountVectorizer(tokenizer=tokenize)),
                                                                           ('tfidf', TfidfTransformer())])),
@@ -67,7 +74,14 @@ def build_model():
                                                       ])),
                       ('clf', MultiOutputClassifier(LogisticRegression(max_iter = 600)))])
     
-    return pipeline_feat_base
+    # choose parameters
+    parameters = {'clf__estimator__max_iter': [600, 800],
+                  'clf__estimator__C': [0.5, 1.0]}
+
+    # create grid search object
+    pipeline_feat_base_cv = GridSearchCV(pipeline_feat_base, param_grid=parameters, scoring='recall_micro', cv=4)
+    
+    return pipeline_feat_base_cv
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
@@ -80,12 +94,22 @@ def evaluate_model(model, X_test, Y_test, category_names):
     
         f1_scores.append(f1_score(Y_test.values[ind], y_pred[ind], zero_division = 1))
   
-    print('Base Model\nMinimum f1 score - {}\nBest f1 score - {}\nMean f1 score - {}'.format(min(f1_scores), max(f1_scores), round(sum(f1_scores)/len(f1_scores), 3)))
-    
+    print('Trained Model\nMinimum f1 score - {}\nBest f1 score - {}\nMean f1 score - {}'.format(min(f1_scores), max(f1_scores), round(sum(f1_scores)/len(f1_scores), 3)))
+    print("\nBest Parameters:", model.best_params_)
     
 
 
 def save_model(model, model_filepath):
+    """
+
+    Parameters
+    ----------
+    model : ML model
+        trained and ready to be deployed to production.
+    model_filepath : string
+        distination to be saved.
+
+    """
     # save the model to disk
     filename = model_filepath
     pickle.dump(model, open(filename, 'wb'))
