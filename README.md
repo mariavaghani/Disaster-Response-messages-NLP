@@ -69,11 +69,12 @@ All files included in this repository are free to use.
 
 # Gallery
 ![image](https://user-images.githubusercontent.com/54246143/114330904-c44b8e00-9b10-11eb-96d9-250569d3a55d.png)
+
 Word Cloud for "Request" category
 
 ![image](https://user-images.githubusercontent.com/54246143/114330960-e80ed400-9b10-11eb-82cf-e8fbc2f7e465.png)
 
-Medical Aid
+Word Cloud for "Medical Aid" category
 
 ![image](https://user-images.githubusercontent.com/54246143/114331139-5ce20e00-9b11-11eb-93e4-4b032517dcc6.png)
 Average message length in characters by category by genre
