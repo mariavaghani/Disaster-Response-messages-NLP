@@ -6,7 +6,7 @@ The app is deployed on Heroku [here](https://disaster-response-app-mv.herokuapp.
 (applic) folder was renamed from (app) to better understand file structure and imports
 
 .<br />
-├── _applic(folder containing app files)<br />
+├── _applic >>>folder containing app files<br />
 │   ├── _templates<br />
 │   │  ├─ go.html >>>page rendering the classifier output, offering a form for another message to be classified<br />
 │   │  └─ master.html >>> initial page, showing some visuals and form to type in a message to be classified<br />
