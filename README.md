@@ -78,3 +78,11 @@ Word Cloud for "Medical Aid" category
 
 ![image](https://user-images.githubusercontent.com/54246143/114331139-5ce20e00-9b11-11eb-93e4-4b032517dcc6.png)
 Average message length in characters by category by genre
+
+![image](https://user-images.githubusercontent.com/54246143/114340092-c3bcf280-9b24-11eb-8890-1348acff556f.png)
+
+Front page of the app
+
+![image](https://user-images.githubusercontent.com/54246143/114340135-dd5e3a00-9b24-11eb-936f-ec7ef7e55e45.png)
+
+Classification output screen
