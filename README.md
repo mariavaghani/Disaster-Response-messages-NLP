@@ -5,31 +5,31 @@ The app is deployed on Heroku [here](https://disaster-response-app-mv.herokuapp.
 # File Structure
 (applic) folder was renamed from (app) to better understand file structure and imports
 
-.
-├── _applic(folder containing app files)
-│   ├── _templates
-│   │  ├─ go.html >>>page rendering the classifier output, offering a form for another message to be classified
-│   │  └─ master.html >>> initial page, showing some visuals and form to type in a message to be classified
-│   ├── __init__.py >>> file to import message_length_estimator as a module
-│   ├── message_length_estimator.py >>> estimator object for the pickle file to reference
-│   └── run.py >>> back - end of the app
-├── _data
-│   ├── DisasterResponse.db
-│   ├── disaster_categories.csv
-│   ├── disaster_messages.csv
-│   └── process_data.py >>> ETL pipeline - python script that generates DisasterResponse database from csv files
-├── _models
-│   ├── __init__.py >>>> file to import message_length_estimator as a module
-│   ├── classifier.pkl
-│   ├── message_length_estimator.py
-│   └── train_classifier.py >>> ML pipeline (NLP) - python script that generates the pickled model using 
-│                               DisasterResponse database, using message_length_estimator
-├── Procfile >>> file that instructs Heroku what to do first
-├── README.md
-├── message_length_estimator.py >>> file to import message_length_estimator as a module, to unpack pickle file using the app
-├── nltk.txt >>> helping Heroku to download necessary nltk modules
-├── runtime.txt >>> helping Heroku to choose version of Python
-└── requirement.txt >>> helping Heroku with downloading packages
+.<br />
+├── _applic(folder containing app files)<br />
+│   ├── _templates<br />
+│   │  ├─ go.html >>>page rendering the classifier output, offering a form for another message to be classified<br />
+│   │  └─ master.html >>> initial page, showing some visuals and form to type in a message to be classified<br />
+│   ├── __init__.py >>> file to import message_length_estimator as a module<br />
+│   ├── message_length_estimator.py >>> estimator object for the pickle file to reference<br />
+│   └── run.py >>> back - end of the app<br />
+├── _data<br />
+│   ├── DisasterResponse.db<br />
+│   ├── disaster_categories.csv<br />
+│   ├── disaster_messages.csv<br />
+│   └── process_data.py >>> ETL pipeline - python script that generates DisasterResponse database from csv files<br />
+├── _models<br />
+│   ├── __init__.py >>>> file to import message_length_estimator as a module<br />
+│   ├── classifier.pkl<br />
+│   ├── message_length_estimator.py<br />
+│   └── train_classifier.py >>> ML pipeline (NLP) - python script that generates the pickled model using<br />
+│                               DisasterResponse database, using message_length_estimator<br />
+├── Procfile >>> file that instructs Heroku what to do first<br />
+├── README.md<br />
+├── message_length_estimator.py >>> file to import message_length_estimator as a module, to unpack pickle file using the app<br />
+├── nltk.txt >>> helping Heroku to download necessary nltk modules<br />
+├── runtime.txt >>> helping Heroku to choose version of Python<br />
+└── requirement.txt >>> helping Heroku with downloading packages<br />
 
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
