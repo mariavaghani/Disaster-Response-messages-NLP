@@ -169,7 +169,7 @@ def main():
 
  
 #uncomment when running locally with disaster.py   
-main()
+#main()
 
 if __name__ == '__main__':
 
